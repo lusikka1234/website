@@ -1,9 +1,7 @@
 backend:
   name: github
-  repo: hubabuba100/lusikka-website
+  repo: lusikka1234/website
   branch: main
-
-local_backend: true
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
