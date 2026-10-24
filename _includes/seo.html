@@ -1,0 +1,37 @@
+{%- assign settings = site.data.seo -%}
+{%- assign defaults = settings[include.locale] -%}
+{%- assign copy = page[include.locale] -%}
+{%- assign seo = copy.seo -%}
+{%- assign site_name = settings.site_name | default: site.title -%}
+{%- capture fallback_title -%}{% if copy.title != nil and copy.title != '' %}{{ copy.title }} — {{ site_name }}{% else %}{{ defaults.title | default: site_name }}{% endif %}{%- endcapture -%}
+{%- assign title = seo.title | default: fallback_title -%}
+{%- assign description = seo.description | default: defaults.description | default: site.description -%}
+{%- assign image = seo.image | default: copy.cover | default: settings.image -%}
+{%- assign image_alt = seo.image_alt | default: defaults.image_alt -%}
+{%- assign origin = settings.site_url | default: site.url -%}
+{%- assign last_character = origin | slice: -1, 1 -%}
+{%- if last_character == '/' -%}{%- assign origin_length = origin | size | minus: 1 -%}{%- assign origin = origin | slice: 0, origin_length -%}{%- endif -%}
+{%- assign canonical = page.url | relative_url | prepend: origin -%}
+<title data-seo>{{ title | escape }}</title>
+<meta data-seo name="description" content="{{ description | strip_html | normalize_whitespace | escape }}">
+{% if settings.author != nil and settings.author != '' %}<meta data-seo name="author" content="{{ settings.author | escape }}">{% endif %}
+<link data-seo rel="canonical" href="{{ canonical | escape }}">
+<meta data-seo property="og:type" content="website">
+<meta data-seo property="og:site_name" content="{{ site_name | escape }}">
+<meta data-seo property="og:title" content="{{ title | escape }}">
+<meta data-seo property="og:description" content="{{ description | strip_html | normalize_whitespace | escape }}">
+<meta data-seo property="og:url" content="{{ canonical | escape }}">
+<meta data-seo property="og:locale" content="{% if include.locale == 'fi' %}fi_FI{% else %}en_US{% endif %}">
+<meta data-seo name="twitter:title" content="{{ title | escape }}">
+<meta data-seo name="twitter:description" content="{{ description | strip_html | normalize_whitespace | escape }}">
+{% if image != nil and image != '' %}
+  {%- assign image_prefix = image | slice: 0, 2 -%}
+  {%- unless image contains '://' or image_prefix == '//' -%}
+    {%- assign image = image | relative_url | prepend: origin -%}
+  {%- endunless -%}
+<meta data-seo property="og:image" content="{{ image | escape }}">
+<meta data-seo property="og:image:alt" content="{{ image_alt | escape }}">
+<meta data-seo name="twitter:card" content="summary_large_image">
+<meta data-seo name="twitter:image" content="{{ image | escape }}">
+<meta data-seo name="twitter:image:alt" content="{{ image_alt | escape }}">
+{% else %}<meta data-seo name="twitter:card" content="summary">{% endif %}

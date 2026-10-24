@@ -1,0 +1,12 @@
+site_name: Lusikka.art
+site_url: https://lusikka.art
+author: Suvi Vainikka
+image: /img1.PNG
+en:
+  title: Lusikka.art
+  description: Selected works by Suvi Vainikka. Explore paintings, studies, and expressive visual storytelling at Lusikka.art.
+  image_alt: Selected artwork by Suvi Vainikka
+fi:
+  title: Lusikka.art
+  description: Suvi Vainikan valikoituja teoksia. Tutustu maalauksiin, tutkielmiin ja ilmeikkääseen visuaaliseen tarinankerrontaan Lusikka.art-sivustolla.
+  image_alt: Suvi Vainikan taidetta

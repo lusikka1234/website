@@ -1,0 +1,24 @@
+en:
+  home: Home
+  about: About me
+  gallery: Gallery
+  contact: Contact
+  menu: Menu
+  language: Language
+  close: Close ×
+  close_viewer: Close image viewer
+  collection: collection
+  work: work
+  works: works
+fi:
+  home: Etusivu
+  about: Minusta
+  gallery: Galleria
+  contact: Yhteystiedot
+  menu: Valikko
+  language: Kieli
+  close: Sulje ×
+  close_viewer: Sulje kuvankatselu
+  collection: kokoelma
+  work: teos
+  works: teosta

@@ -1,0 +1,391 @@
+[data-language] { display: none; }
+html[lang="en"] [data-language="en"],
+html[lang="fi"] [data-language="fi"] { display: block; }
+
+@keyframes open-left {
+    from {
+        flex: 1;
+    }
+
+    to {
+        flex: .35;
+    }
+}
+
+@keyframes open-right {
+    from {
+        flex: 0;
+    }
+
+    to {
+        flex: .65;
+    }
+}
+
+@keyframes gallery-enter {
+    from {
+        opacity: 0;
+        transform: translateX(1.25rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes gallery-leave {
+    to {
+        opacity: 0;
+        transform: translateX(-1.25rem);
+    }
+}
+
+html[lang="en"] span[data-language="en"],
+html[lang="fi"] span[data-language="fi"] { display: inline; }
+
+html,
+body {
+    background: #fff;
+    color: #e00;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    margin-left: 2.5%;
+    padding: 0;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #e00;
+    height: 1px;
+    margin: 1em 0;
+}
+
+.main-container {
+    display: flex;
+}
+
+.left {
+    animation: open-left .6s ease-in-out;
+    display: flex;
+    flex: .35;
+    height: 100vh;
+    position: sticky;
+    justify-content: space-between;
+    top: 0;
+    transition: flex .6s;
+}
+
+.right {
+    animation: open-right .6s ease-in-out;
+    flex: .65;
+    min-width: 0;
+    overflow: hidden;
+    transition: flex .6s;
+}
+
+.main-container.leaving .left {
+    flex: 1;
+}
+
+.main-container.leaving .right {
+    flex: 0;
+}
+
+html.gallery-inner .left,
+html.gallery-inner .right,
+body:has(.back-collection) .left,
+body:has(.back-collection) .right {
+    animation: none;
+}
+
+html.gallery-inner .page,
+body:has(.back-collection) .page {
+    animation: gallery-enter .1s ease-out;
+}
+
+.main-container.gallery-leaving .page {
+    animation: gallery-leave .1s ease-in forwards;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 5rem 0;
+}
+
+.menu a {
+    box-shadow: inset 0 0 0 0 #e00;
+    color: #e00;
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin: 0 -.25rem;
+    padding: 0 .25rem;
+    text-decoration: none;
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+    width: max-content;
+}
+
+.img-logo {
+    width: 200px;
+}
+
+.menu a:hover,
+.menu a.selected {
+    box-shadow: inset 300px 0 0 0 #e00;
+    color: white;
+}
+
+.lang-select-cont {
+    display: inline-flex;
+    gap: .5rem;
+    margin-top: 2rem;
+}
+
+.lang-select-cont * {
+    font-size: 2rem !important;
+}
+
+.logo {
+    border-right: 1px solid #e00;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    width: 200px;
+}
+
+.logo h1 {
+    font-size: 20vh;
+    line-height: 200px;
+    margin: 0;
+    padding: 10%;
+    rotate: -90deg;
+}
+
+.page {
+    margin: 1rem auto;
+    padding: 1rem;
+    width: 50vw;
+}
+
+.image-box img {
+    max-width: 100%;
+}
+
+.image-box h3,
+.image-box p {
+    margin: .2rem;
+    padding: .2rem;
+}
+
+.gallery-grid {
+    background: #e00;
+    border: 1px solid #e00;
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.artwork {
+    background: white;
+}
+
+.artwork button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: zoom-in;
+    display: block;
+    font: inherit;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.artwork img {
+    aspect-ratio: 1 / .8;
+    display: block;
+    object-fit: cover;
+    width: calc(100% - 2rem);
+    margin: 1rem;
+    margin-bottom: 0;
+}
+
+.artwork h3 {
+    font-size: 1.1rem;
+    margin: .5rem 1rem .1rem;
+}
+
+.artwork p {
+    font-size: .9rem;
+    margin: 0 1rem .5rem;
+}
+
+.collection-link {
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: background .3s ease-in-out, color .3s ease-in-out;
+}
+
+.collection-link:hover {
+    background: #e00;
+    color: white;
+}
+
+
+.back-collection {
+    color: #e00;
+    font-weight: bold;
+}
+
+.collection-heading {
+    font-size: 2rem;
+    margin: 1rem 0 .5rem;
+}
+
+.viewer {
+    background: rgba(255, 255, 255, .96);
+    display: grid;
+    inset: 0;
+    padding: 2rem;
+    place-items: center;
+    position: fixed;
+    z-index: 10;
+}
+
+.viewer[hidden] {
+    display: none;
+}
+
+.viewer-inner {
+    position: relative;
+    width: min(900px, 100%);
+}
+
+.viewer img {
+    display: block;
+    margin: 0 auto;
+    max-height: 78vh;
+    max-width: 100%;
+}
+
+.viewer-copy {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: .75rem;
+}
+
+.viewer-copy h2,
+.viewer-copy p {
+    margin: 0;
+}
+
+.close-viewer {
+    background: white;
+    border: 1px solid #e00;
+    color: #e00;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+    padding: .25rem .5rem;
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+}
+
+.mobile-bar {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    html,
+    body {
+        margin: 0 1rem;
+    }
+
+    .mobile-bar {
+        align-items: center;
+        background: #fff;
+        border-bottom: 1px solid #e00;
+        display: flex;
+        justify-content: space-between;
+        padding: .8rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+    }
+
+    .mobile-logo,
+    .mobile-menu-button {
+        background: none;
+        border: 0;
+        color: #e00;
+        font: inherit;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        padding: 0;
+        text-decoration: none;
+    }
+
+    .mobile-menu-button {
+        cursor: pointer;
+    }
+
+    .main-container {
+        display: block;
+    }
+
+    .left,
+    .right {
+        animation: none;
+    }
+
+    .left {
+        background: #fff;
+        box-sizing: border-box;
+        height: 100dvh;
+        left: 0;
+        padding-top: 4rem;
+        position: fixed;
+        top: 0;
+        transform: translateX(-100%);
+        transition: transform .6s ease-in-out;
+        width: 100%;
+        z-index: 15;
+    }
+
+    .mobile-menu-open .left { transform: translateX(0); }
+
+    .menu {
+        margin: 2rem;
+    }
+
+    .menu a {
+        font-size: 2.5rem;
+    }
+
+    .logo {
+        height: 100dvh;
+    }
+
+    .right {
+        overflow: visible;
+    }
+
+    .page {
+        margin: 0;
+        padding: 1rem 0;
+        width: auto;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

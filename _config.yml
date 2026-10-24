@@ -1,0 +1,53 @@
+title: Lusikka.art
+i18n_locales: [en, fi]
+description: Selected works by Lusikka
+baseurl: ""
+url: ""
+
+collections:
+  galleries:
+    output: true
+    permalink: /gallery/:name/
+  artworks:
+    output: false
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: "index.md"
+    values:
+      section: home
+  - scope:
+      path: "about.md"
+    values:
+      section: about
+      permalink: /about/
+  - scope:
+      path: "contact.md"
+    values:
+      section: contact
+      permalink: /contact/
+  - scope:
+      path: "gallery.md"
+    values:
+      section: gallery
+      permalink: /gallery/
+  - scope:
+      path: ""
+      type: galleries
+    values:
+      layout: gallery
+      section: gallery
+  - scope:
+      path: ""
+      type: artworks
+    values:
+      layout: artwork
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - tests

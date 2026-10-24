@@ -1,0 +1,39 @@
+{%- assign localized_page = page[include.locale] -%}
+{%- assign labels = site.data.translations[include.locale] -%}
+{%- assign language_query = '?lang=' | append: include.locale -%}
+{%- if page.section == 'home' -%}
+{%- assign featured_artworks = site.artworks | where: 'en.featured', true | sort: 'en.order' -%}
+{%- for artwork in featured_artworks limit: 3 -%}
+{%- assign copy = artwork[include.locale] -%}
+    <div class="image-box">
+      <img src="{{ artwork.en.image | relative_url }}" alt="{{ copy.title | escape }}">
+      <h3>{{ copy.title | escape }}</h3>
+      <p>{{ copy.medium | escape }}, {{ artwork.en.year }}. {{ copy.description | escape }}</p>
+      <hr>
+    </div>
+{%- endfor -%}
+  {{ localized_page.text | markdownify }}
+{%- elsif page.collection == 'galleries' -%}
+  <a class="back-collection" href="{{ '/gallery/' | relative_url }}{{ language_query }}">← {{ labels.gallery }}</a>
+  <h2 class="collection-heading">{{ localized_page.title | escape }}</h2>
+  <div class="gallery-grid">
+{%- assign gallery_artworks = site.artworks | where: 'en.gallery', page.slug | sort: 'en.order' -%}
+{%- for artwork in gallery_artworks -%}
+{%- assign copy = artwork[include.locale] -%}
+      <article class="artwork"><button type="button" data-title="{{ copy.title | escape }}" data-details="{{ copy.medium | escape }}, {{ artwork.en.year }} · {{ localized_page.title | escape }}"><img src="{{ artwork.en.image | relative_url }}" alt="{{ copy.title | escape }}"></button><h3>{{ copy.title | escape }}</h3><p>{{ copy.medium | escape }}, {{ artwork.en.year }}</p></article>
+{%- endfor -%}
+  </div>
+{%- elsif page.section == 'gallery' -%}
+  {{ localized_page.text | markdownify }}
+  <hr>
+  <div class="gallery-grid">
+{%- assign gallery_items = site.galleries | sort: 'en.order' -%}
+{%- for gallery in gallery_items -%}
+{%- assign copy = gallery[include.locale] -%}
+{%- assign count = site.artworks | where: 'en.gallery', gallery.slug | size -%}
+      <article class="artwork"><a class="collection-link" href="{{ gallery.url | relative_url }}{{ language_query }}"><img src="{{ gallery.en.cover | relative_url }}" alt="{{ copy.title | escape }} — {{ labels.collection }}"><h3>{{ copy.title | escape }}</h3><p>{{ count }} {% if count == 1 %}{{ labels.work }}{% else %}{{ labels.works }}{% endif %}</p></a></article>
+{%- endfor -%}
+  </div>
+{%- else -%}
+  {{ localized_page.text | markdownify }}
+{%- endif -%}

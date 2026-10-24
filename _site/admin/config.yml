@@ -1,0 +1,125 @@
+backend:
+  name: github
+  repo: hubabuba100/lusikka-website
+  branch: main
+
+local_backend: true
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+# Both languages are stored together in each entry's front matter.
+i18n:
+  structure: single_file
+  locales: [en, fi]
+  default_locale: en
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    i18n: true
+    files:
+      - label: "Home"
+        name: "home"
+        file: "index.md"
+        i18n: true
+        fields:
+          - &seo_fields
+            label: "SEO and social sharing"
+            name: "seo"
+            widget: "object"
+            i18n: true
+            required: false
+            collapsed: true
+            hint: "Leave fields blank to use the site-wide SEO defaults."
+            fields:
+              - { label: "SEO title", name: "title", widget: "string", i18n: true, required: false, hint: "Full title for search results and social previews; include the site name if desired." }
+              - { label: "Meta description", name: "description", widget: "text", i18n: true, required: false, hint: "A concise summary of this page, ideally around 150–160 characters." }
+              - { label: "Social preview image", name: "image", widget: "image", i18n: duplicate, required: false, hint: "A wide image works best, ideally 1200 × 630 pixels." }
+              - { label: "Social image description", name: "image_alt", widget: "string", i18n: true, required: false }
+          - { label: "Home page note", name: "text", widget: "markdown", i18n: true, required: false }
+      - label: "About"
+        name: "about"
+        file: "about.md"
+        i18n: true
+        fields:
+          - *seo_fields
+          - { label: "Title", name: "title", widget: "string", i18n: true }
+          - { label: "Content", name: "text", widget: "markdown", i18n: true }
+      - label: "Contact"
+        name: "contact"
+        file: "contact.md"
+        i18n: true
+        fields:
+          - *seo_fields
+          - { label: "Title", name: "title", widget: "string", i18n: true }
+          - { label: "Content", name: "text", widget: "markdown", i18n: true }
+      - label: "Gallery"
+        name: "gallery"
+        file: "gallery.md"
+        i18n: true
+        fields:
+          - *seo_fields
+          - { label: "Title", name: "title", widget: "string", i18n: true }
+          - { label: "Content", name: "text", widget: "markdown", i18n: true }
+
+  - name: "galleries"
+    label: "Collections"
+    label_singular: "Collection"
+    folder: "_galleries"
+    create: true
+    i18n: true
+    slug: "{{slug}}"
+    fields:
+      - *seo_fields
+      - { label: "Title", name: "title", widget: "string", i18n: true }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", min: 1, i18n: duplicate }
+      - { label: "Cover image", name: "cover", widget: "image", i18n: duplicate }
+
+  - name: "artworks"
+    label: "Artworks"
+    label_singular: "Artwork"
+    folder: "_artworks"
+    create: true
+    i18n: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{gallery}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", i18n: true }
+      - label: "Collection"
+        name: "gallery"
+        widget: "relation"
+        collection: "galleries"
+        search_fields: ["title"]
+        value_field: "{{slug}}"
+        display_fields: ["title"]
+        i18n: duplicate
+      - { label: "Image", name: "image", widget: "image", i18n: duplicate }
+      - { label: "Medium", name: "medium", widget: "string", i18n: true }
+      - { label: "Year", name: "year", widget: "number", value_type: "int", min: 1900, i18n: duplicate }
+      - { label: "Description", name: "description", widget: "text", required: false, i18n: true }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", min: 1, i18n: duplicate }
+      - { label: "Show on home page", name: "featured", widget: "boolean", default: false, i18n: duplicate }
+
+  - name: "settings"
+    label: "Settings"
+    files:
+      - name: "seo"
+        label: "Site SEO"
+        file: "_data/seo.yml"
+        fields:
+          - { label: "Site name", name: "site_name", widget: "string" }
+          - { label: "Website URL", name: "site_url", widget: "string", pattern: ['^https?://[^/\s]+(/[^\s]*)?$', "Enter a full website URL starting with https://"], hint: "The public website address, used for canonical and social image URLs. No trailing slash." }
+          - { label: "Author", name: "author", widget: "string", required: false }
+          - { label: "Default social preview image", name: "image", widget: "image", required: false }
+          - label: "English defaults"
+            name: "en"
+            widget: "object"
+            fields: &seo_defaults
+              - { label: "Home page SEO title", name: "title", widget: "string" }
+              - { label: "Default meta description", name: "description", widget: "text" }
+              - { label: "Default social image description", name: "image_alt", widget: "string", required: false }
+          - label: "Finnish defaults"
+            name: "fi"
+            widget: "object"
+            fields: *seo_defaults
