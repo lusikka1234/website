@@ -1,8 +1,7 @@
 title: Lusikka.art
 i18n_locales: [en, fi]
 description: Selected works by Lusikka
-baseurl: "https://lusikka1234.github.io/website/"
-url: "https://lusikka1234.github.io/website/"
+baseurl: "/website"
 
 collections:
   galleries:
