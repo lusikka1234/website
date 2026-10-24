@@ -1,8 +1,16 @@
 ---
 en:
   title: Contact
-  text: "# Contact\n\nFor exhibitions and enquiries:  \n[hello@lusikka.art](mailto:hello@lusikka.art)"
+  text: |-
+    # Contact
+
+    For exhibitions and enquiries:\
+    [suvichen.vainikka@gmail.com](mailto:suvichen.vainikka@gmail.com)
 fi:
   title: Yhteystiedot
-  text: "# Yhteystiedot\n\nNäyttelyt ja tiedustelut:  \n[hello@lusikka.art](mailto:hello@lusikka.art)"
+  text: |-
+    # Yhteystiedot
+
+    Näyttelyt ja tiedustelut:\
+    [suvichen.vainikka@gmail.com](mailt:suvichen.vainikka@gmail.com)
 ---
